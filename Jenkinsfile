@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'tag', defaultValue: 'latest', description: 'docker image tag version')
+    }
+    
     stages {
         stage("hello message") {
             steps {
@@ -26,8 +30,8 @@ pipeline {
                 passwordVariable:"dockerHubPass",
                 usernameVariable:"dockerHubUser")]){
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker image tag krishna:latest ${env.dockerHubUser}/krishna:$tag"
-                sh "docker push ${env.dockerHubUser}/krishna:$tag"
+                sh "docker image tag krishna:${params.tag} ${env.dockerHubUser}/krishna:${params.tag}"
+                sh "docker push ${env.dockerHubUser}/krishna:${params.tag}"
                 }
             }
         }

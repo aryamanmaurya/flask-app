@@ -20,7 +20,7 @@ pipeline {
         }
         stage("Build the image of the Code.") {
             steps {
-                sh "docker build -t krishna:latest ."
+                sh "docker build -t krishna:${params.tag} ."
                 echo "image build sucessful."
             }
         }
